@@ -3,7 +3,7 @@ public class StringCalculatorTest {
     @Test
     public void testAdd() {
         StringCalculator calculator = new StringCalculator();
-
+        
         //Test Cases for string of comma-separated numbers,and any numbers
         Assert.assertEquals(15, calculator.add("1,2,3,4,5"));
         Assert.assertEquals(60, calculator.add("10,20,30"));
@@ -23,5 +23,23 @@ public class StringCalculatorTest {
         Assert.assertEquals(10, calculator.add("//-\n1-2-3-4"));
 
 
+    }
+    //Test for 
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddWithNegativeNumbers() {
+        StringCalculator calculator = new StringCalculator();
+        calculator.add("1,-2,3,-4,5");
+    }
+
+
+    @Test
+    public void testAddWithNegativeNumbersMessage() {
+        StringCalculator calculator = new StringCalculator();
+        try {
+            calculator.add("1,-2,3,-4,5");
+            Assert.fail("Exception expected");
+        } catch (IllegalArgumentException e) {
+            Assert.assertEquals("negative numbers not allowed: [-2, -4]", e.getMessage());
+        }
     }
 }
